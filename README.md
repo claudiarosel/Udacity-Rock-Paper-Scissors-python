@@ -4,5 +4,5 @@ The game has two players. In a single round of the game, each player secretly ch
 
 To launch the game:
 
-Download, extract and run the Udacity-Rock-Paper-Scissors-python.py in your terminal
+  Download, extract and run the Udacity-Rock-Paper-Scissors-python.py in your terminal
 
