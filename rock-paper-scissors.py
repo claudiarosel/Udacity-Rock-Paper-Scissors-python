@@ -1,39 +1,58 @@
-
 import random
 
 # Three different moves the player can make
 moves = ['rock', 'paper', 'scissors']
 
 # Function to decide who beats whom
+
+
 def beats(one, two):
+
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
             (one == 'paper' and two == 'rock'))
 
 # The Player class is the parent class for all of the Players in this game
+
+
 class Player:
+
     def move(self):
         return 'rock'
+
     def learn(self, my_move, their_move):
         pass
 
 # Chooses its move at random and it returns 'rock','paper', or 'scissors'
+
+
 class RandomPlayer(Player):
+
     def move(self):
         return random.choice(moves)
 
-# What move the opponent played last round, and plays that move in the next round
+# What move the opponent played last round
+# and plays that move in the next round
+
+
 class ReflectPlayer(Player):
+
     def __init__(self):
-        # First round is a random choice because you haven't played anything.
+        # First round is a random choice
         self.previous_move2 = random.choice(moves)
+
     def move(self):
         return self.previous_move2
+
     def learn(self, my_move, their_move):
         self.previous_move2 = their_move
 
-# It remembers what move _it_ played last round and cycles through the different moves
+# It remembers what move _it_ played last round
+# and cycles through the different moves
+
+
 class CyclePlayer(Player):
+
     def __init__(self):
         self.previous_move1 = random.choice(moves)
 
