@@ -1,53 +1,43 @@
 
 import random
 
-#Three different moves the player can make
+# Three different moves the player can make
 moves = ['rock', 'paper', 'scissors']
 
-
-#Function to decide who beats whom.
+# Function to decide who beats whom
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
             (one == 'paper' and two == 'rock'))
 
-
-#The Player class is the parent class for all of the Players in this game
+# The Player class is the parent class for all of the Players in this game
 class Player:
     def move(self):
         return 'rock'
-
     def learn(self, my_move, their_move):
         pass
 
-
-#Chooses its move at random and it returns 'rock','paper', or 'scissors'
+# Chooses its move at random and it returns 'rock','paper', or 'scissors'
 class RandomPlayer(Player):
     def move(self):
         return random.choice(moves)
 
-
-
-#What move the opponent played last round, and plays that move in the next round
+# What move the opponent played last round, and plays that move in the next round
 class ReflectPlayer(Player):
     def __init__(self):
-        #First round is a random choice because you haven't played anything.
+        # First round is a random choice because you haven't played anything.
         self.previous_move2 = random.choice(moves)
-
     def move(self):
         return self.previous_move2
-
     def learn(self, my_move, their_move):
         self.previous_move2 = their_move
 
-
-
-#It remembers what move _it_ played last round and cycles through the different moves
+# It remembers what move _it_ played last round and cycles through the different moves
 class CyclePlayer(Player):
     def __init__(self):
         self.previous_move1 = random.choice(moves)
 
-    #Rotate moves until it restarts with rock again
+    # Rotate moves until it restarts with rock again
     def move(self):
         moves_available = moves.index(self.previous_move1)
         if moves_available == 2:
@@ -55,12 +45,12 @@ class CyclePlayer(Player):
         else:
             return moves[moves_available + 1]
 
-    #Sets up the player to recall its own previous move
+    # Sets up the player to recall its own previous move
     def learn(self, my_move, their_move):
         self.previous_move1 = my_move
 
 
-#Asks the player to choose the move
+# Asks the player to choose the move
 class Human(Player):
     def move(self):
         your_move = ""
@@ -109,7 +99,7 @@ class Game:
         while True:
             rounds_num = input("number of rounds you would "
                                "like to play (1-10): ")
-            #Checking for valid number 1-10. If not, loop back.
+            # Checking for valid number 1-10. If not, loop back.
             if rounds_num.isnumeric():
                 rounds_num = int(rounds_num)
                 if rounds_num >= 0 and rounds_num <= 10:
@@ -121,7 +111,7 @@ class Game:
                 else:
                     print("That's not a number between 1 to 10, try again.")
 
-    #Choose the opponent
+    # Choose the opponent
     def opposite_player(self):
         print(
             "Select your opponent:\n"
@@ -155,7 +145,7 @@ class Game:
     def outcome(self, first_play, second_play):
 
         if beats(first_play, second_play):
-            #Player one wins
+            # Player one wins
             self.player_one += 1
             print("move '{0}' beats '{1}'. First Player won round!"
                   .format(first_play, second_play))
@@ -165,7 +155,7 @@ class Game:
             print("Ties: {0}".format(self.tiegame))
 
         elif beats(second_play, first_play):
-            #Opponent wins
+            # Opponent wins
             self.player_two += 1
             print("move {0} beats {1}. Second Player won round!"
                   .format(second_play, first_play))
@@ -175,7 +165,7 @@ class Game:
             print("Ties: {0}".format(self.tiegame))
 
         else:
-            #It's a tie
+            # It's a tie
             self.tiegame += 1
             print("Nobody won, it's a tie")
             print("Score:")
@@ -201,7 +191,7 @@ class Game:
                 self.play_round()
 
     def game_results(self):
-        #Results of the game
+        # Results of the game
         if self.rounds_played >= 1:
             print("\n----------------------------------")
             print("Overall score:")
